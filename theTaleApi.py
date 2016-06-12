@@ -19,7 +19,7 @@ class theTaleApi:
 		result = r.json()
 		if result['status'] != 'ok':
 			raise Exception(
-				{'Response text:': r.text,
+				{'Response text': r.text,
 				'Request url': r.request.url,
 				'Request headers': str(r.request.headers)})
 		else:
