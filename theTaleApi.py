@@ -5,35 +5,49 @@ import random
 import string
 
 
-class apiException(BaseException):
-	def __init__(self, value):
-		Exception.__init__(value)
-
-
 class theTaleApi:
 	'''
 	.. seealso:: http://the-tale.org/guide/api
 	:param client_id: id of client app ("name-version")
 	:type client_id: str
 	'''
-	def _check(r):
+	def _check(self, r):
+		if self.debug:
+			print('Response text:' + r.text +
+				'Request url' + r.request.url +
+				'Request headers' + str(r.request.headers))
 		result = r.json()
 		if result['status'] != 'ok':
-			raise apiException(
+			raise Exception(
 				{'Response text:': r.text,
 				'Request url': r.request.url,
 				'Request headers': str(r.request.headers)})
 		else:
 			return result
 
-	def __init__(self, client_id):
+	def __init__(self, client_id, debug=False):
 		self.url = 'http://the-tale.org{path}'
 		self.client_id = client_id
+		self.debug = debug
 		CSRFToken = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(32))
 
 		self.session = requests.session()
 		self.session.headers.update({'X-CSRFToken': CSRFToken})
 		self.session.cookies['csrftoken'] = CSRFToken
+
+	def base_info(self):
+		'''
+		.. function:: base_info()
+		Получение базовой информации о текущих параметрах игры и некоторых других данных.
+
+		:return: Ответ API
+		:rtype: dict
+		'''
+		r = self.session.post(self.url.format(
+			path='/api/info/'),
+			params={'api_client': self.client_id,
+				'api_version': '1.0'})
+		return self._check(r)
 
 	def request_authorisation(self, appName, appInfo, appDesc):
 		'''
@@ -114,7 +128,7 @@ class theTaleApi:
 		:return: Ответ API
 		:rtype: dict
 		'''
-		r = self.session.get(self.url.format(
+		r = self.session.post(self.url.format(
 			path='/accounts/auth/api/logout'),
 			params={'api_client': self.client_id,
 				'api_version': '1.0'})

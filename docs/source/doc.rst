@@ -6,6 +6,13 @@
 	:return: Ответ API
 	:rtype: dict
 	
+.. function:: base_info()
+
+	Получение базовой информации о текущих параметрах игры и некоторых других данных.
+
+	:return: Ответ API
+	:rtype: dict
+	
 .. function:: cards_get()
 
 	Взять новую карту в колоду игрока.
