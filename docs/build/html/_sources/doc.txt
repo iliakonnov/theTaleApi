@@ -1,5 +1,5 @@
 
-.. function:: request_authorisation()
+.. function:: authorisation_state()
 
 	Метод возвращает состояние авторизации для текущей сессии. Обычно вызывается после запроса авторизации.
 
@@ -58,7 +58,7 @@
 	:return: Ответ API
 	:rtype: dict
 	
-.. function:: login(email, password[, next_url='/', remember])
+.. function:: login(email, password[, next_url='/', remember=False])
 
 	Вход в игру. Используйте этот метод только если разрабатываете приложение для себя и друзей. В остальных случаях пользуйтесь «авторизацией в игре».
 
@@ -102,7 +102,7 @@
 	:type place: str
 	.. warning:: Это экспериментальный метод, при появлении новой версии не гарантируется работоспособность предыдущей!
 	
-.. function:: request_authorisation(appName, appInfo, appDesc[, start=0])
+.. function:: request_authorisation(appName, appInfo, appDesc)
 
 	Авторизация приложения для проведения операций от имени пользователя. Приложению не будут доступны «критические» операции и данные.
 
@@ -134,7 +134,7 @@
 	:return: Ответ API
 	:rtype: dict
 	
-.. function:: use_ability(abilityId[, building, battle])
+.. function:: use_ability(abilityId[, building=None, battle=None])
 
 	Использование одной из способностей игрока (список способностей см. в разделе типов)
 

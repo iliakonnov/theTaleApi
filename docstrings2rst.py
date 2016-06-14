@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # coding:utf8
-from api import theTaleApi
+from theTaleApi import theTaleApi
 import inspect
 import re
 functions = inspect.getmembers(theTaleApi, predicate=inspect.ismethod)

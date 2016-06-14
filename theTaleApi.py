@@ -52,7 +52,7 @@ class theTaleApi:
 
 	def request_authorisation(self, appName, appInfo, appDesc):
 		'''
-		.. function:: request_authorisation(appName, appInfo, appDesc[, start=0])
+		.. function:: request_authorisation(appName, appInfo, appDesc)
 		Авторизация приложения для проведения операций от имени пользователя. \
 Приложению не будут доступны «критические» операции и данные.
 
@@ -77,7 +77,7 @@ class theTaleApi:
 
 	def authorisation_state(self):
 		'''
-		.. function:: request_authorisation()
+		.. function:: authorisation_state()
 		Метод возвращает состояние авторизации для текущей сессии. \
 Обычно вызывается после запроса авторизации.
 
@@ -91,9 +91,9 @@ class theTaleApi:
 				'api_version': '1.0'})
 		return self._check(r)
 
-	def login(self, email, password, **kwargs):
+	def login(self, email, password, next_url='/', remember=False):
 		'''
-		.. function:: login(email, password[, next_url='/', remember])
+		.. function:: login(email, password[, next_url='/', remember=False])
 		Вход в игру. Используйте этот метод только если разрабатываете приложение для себя и друзей. \
 В остальных случаях пользуйтесь «авторизацией в игре».
 
@@ -107,13 +107,9 @@ class theTaleApi:
 		:return: Ответ API
 		:rtype: dict
 		'''
-		if 'next_url' not in kwargs:
-			next_url = '/'
-		else:
-			next_url = kwargs['next_url']
 		data = {'email': email,
 				'password': password}
-		if 'remember' in kwargs:
+		if remember:
 			data['remember'] = True
 		r = self.session.post(self.url.format(
 			path='/accounts/auth/api/login'),
@@ -178,9 +174,9 @@ class theTaleApi:
 				'aclient_turns': client_turns})
 		return self._check(r)
 
-	def use_ability(self, abilityId, **kwargs):
+	def use_ability(self, abilityId, building=None, battle=None):
 		'''
-		.. function:: use_ability(abilityId[, building, battle])
+		.. function:: use_ability(abilityId[, building=None, battle=None])
 		Использование одной из способностей игрока (список способностей см. в разделе типов)
 
 		:param abilityId: идентификатор способности
@@ -193,10 +189,10 @@ class theTaleApi:
 		:rtype: dict
 		'''
 		data = {}
-		if 'building' in kwargs:
-			data['building'] = kwargs['building']
-		if 'battle' in kwargs:
-			data['battle'] = kwargs['battle']
+		if building is not None:
+			data['building'] = building
+		if battle is not None:
+			data['battle'] = battle
 		r = self.session.post(self.url.format(
 			path='/game/abilities/{aId}/api/use'.format(aId=abilityId)),
 			params={'csrfmiddlewaretoken': self.CSRFToken,
@@ -262,7 +258,7 @@ class theTaleApi:
 				'cards': cards})
 		return self._check(r)
 
-	def cards_use(self, card, **kwargs):
+	def cards_use(self, card, person=None, place=None, building=None):
 		'''
 		.. function:: cards_use(card[, person, place, building])
 		Использовать карту из колоды игрока
@@ -281,12 +277,12 @@ class theTaleApi:
 формат ответа соответствует ответу для всех «неблокирующих операций».
 		'''
 		data = {}
-		if 'person' in kwargs:
-			data['person'] = kwargs['person']
-		if 'place' in kwargs:
-			data['place'] = kwargs['place']
-		if 'building' in kwargs:
-			data['building'] = kwargs['building']
+		if person is not None:
+			data['person'] = person
+		if place is not None:
+			data['place'] = place
+		if building is not None:
+			data['building'] = building
 		r = self.session.post(self.url.format(
 			path='/game/cards/api/use'),
 			params={'csrfmiddlewaretoken': self.CSRFToken,
