@@ -3,9 +3,10 @@
 from theTaleApi import theTaleApi
 import inspect
 import re
+from sys import argv
 functions = inspect.getmembers(theTaleApi, predicate=inspect.ismethod)
 first = True
-with open('./docs/source/doc.rst', 'w') as f:
+with open('{}/doc.rst'.format(argv[1]), 'w') as f:
 	for name, func in functions:
 		if not name.startswith('_'):
 			if not first:
