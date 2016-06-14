@@ -6,9 +6,10 @@ import re
 from sys import argv
 functions = inspect.getmembers(theTaleApi, predicate=inspect.ismethod)
 first = True
+allow = ['__init__']
 with open('{}/doc.rst'.format(argv[1]), 'w') as f:
 	for name, func in functions:
-		if not name.startswith('_'):
+		if not name.startswith('_') or name in allow:
 			if not first:
 				f.seek(-1, 1)
 			else:

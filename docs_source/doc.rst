@@ -1,4 +1,13 @@
 
+.. function:: __init__(client_id[, host="the-tale.org", debug=False])
+
+	:param client_id: идентификатор клиентского приложения (<идентификатор программы>-<версия>)
+	:type client_id: str
+	:param host: Адрес сервера без https
+	:type host: str
+	:param debug: Включить дебаг илли нет.
+	:type debug: bool
+	
 .. function:: authorisation_state()
 
 	Метод возвращает состояние авторизации для текущей сессии. Обычно вызывается после запроса авторизации.
