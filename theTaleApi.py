@@ -25,8 +25,8 @@ class theTaleApi:
 		else:
 			return result
 
-	def __init__(self, client_id, debug=False):
-		self.url = 'http://the-tale.org{path}'
+	def __init__(self, client_id, host='http://the-tale.org', debug=False):
+		self.url = '{host}{{path}}'.format(host=host)
 		self.client_id = client_id
 		self.debug = debug
 		self.CSRFToken = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(32))
