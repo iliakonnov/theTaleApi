@@ -8,7 +8,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 try:
-	api = theTaleApi.theTaleApi('exampleApp-1.0', False)
+	api = theTaleApi.theTaleApi('exampleApp-1.0', debug=False)
 	api.login(raw_input('Email: '), getpass.getpass())
 	accId = str(api.authorisation_state()['data']['account_id'])
 	info = api.show(accId)['data']
@@ -16,5 +16,8 @@ try:
 	print('Имя: ' + info['name'])
 	api.logout()
 except Exception as e:
-	for key, value in e.message.iteritems():
-		print(key + ": " + str(value))
+	if type(e.message) is dict:
+		for key, value in e.message.iteritems():
+			print(key + ": " + str(value))
+	else:
+		raise e

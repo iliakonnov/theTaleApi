@@ -8,32 +8,47 @@ import string
 class theTaleApi:
 	'''
 	.. seealso:: http://the-tale.org/guide/api
-	:param client_id: id of client app ("name-version")
-	:type client_id: str
 	'''
+	def _cookie(self, r):
+		if 'csrftoken' in r.cookies:
+			self.session.cookies.set('csrftoken', self.CSRFToken, domain=self.host)
+
 	def _check(self, r):
 		if self.debug:
-			print('Response text:' + r.text +
-				'Request url' + r.request.url +
-				'Request headers' + str(r.request.headers))
+			print('Response text: ' + r.text +
+				'Request url: ' + r.request.url +
+				'Request headers: ' + str(r.request.headers) +
+				'Session cookies: ' + str(self.session.cookies))
 		result = r.json()
 		if result['status'] != 'ok':
 			raise Exception(
 				{'Response text': r.text,
 				'Request url': r.request.url,
-				'Request headers': str(r.request.headers)})
+				'Request headers': str(r.request.headers),
+				'Session cookies': self.session.cookies})
 		else:
+			self._cookie(r)
 			return result
 
-	def __init__(self, client_id, host='http://the-tale.org', debug=False):
-		self.url = '{host}{{path}}'.format(host=host)
+	def __init__(self, client_id, host='the-tale.org', debug=False):
+		'''
+		.. function:: __init__(client_id[, host="the-tale.org", debug=False])
+		:param client_id: идентификатор клиентского приложения (<идентификатор программы>-<версия>)
+		:type client_id: str
+		:param host: Адрес сервера без https
+		:type host: str
+		:param debug: Включить дебаг илли нет.
+		:type debug: bool
+		'''
+		self.host = host
+		self.url = 'http://{host}{{path}}'.format(host=host)
 		self.client_id = client_id
 		self.debug = debug
 		self.CSRFToken = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(32))
 
 		self.session = requests.session()
 		self.session.headers.update({'X-CSRFToken': self.CSRFToken})
-		self.session.cookies['csrftoken'] = self.CSRFToken
+		self.session.cookies.set('csrftoken', self.CSRFToken, domain=host)
 
 	def base_info(self):
 		'''

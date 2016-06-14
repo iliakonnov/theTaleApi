@@ -1,0 +1,505 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Документация The Tale API 1.0</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="None" href="index.html#document-index"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html#document-index" class="icon icon-home"> The Tale API
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="simple">
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html#document-index">The Tale API</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html#document-index">Docs</a> &raquo;</li>
+      
+    <li>Документация The Tale API 1.0</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-the-tale-api-s-documentation">
+<h1>Welcome to The Tale api&#8217;s documentation!<a class="headerlink" href="#welcome-to-the-tale-api-s-documentation" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+</div>
+<dl class="function">
+<dt id="authorisation_state">
+<code class="descname">authorisation_state</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#authorisation_state" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Метод возвращает состояние авторизации для текущей сессии. Обычно вызывается после запроса авторизации.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Результат:</th><td class="field-body">Ответ API</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Тип результата:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="base_info">
+<code class="descname">base_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#base_info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Получение базовой информации о текущих параметрах игры и некоторых других данных.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Результат:</th><td class="field-body">Ответ API</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Тип результата:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="cards_get">
+<code class="descname">cards_get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cards_get" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Взять новую карту в колоду игрока.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Результат:</th><td class="field-body">Ответ API</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Тип результата:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Метод является «неблокирующей операцией» (см. документацию), формат ответа соответствует ответу для всех «неблокирующих операций».</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="cards_merge">
+<code class="descname">cards_merge</code><span class="sig-paren">(</span><em>cards</em><span class="sig-paren">)</span><a class="headerlink" href="#cards_merge" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Объединить карты из колоды игрока.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>cards</strong> (<em>str</em>) &#8211; перечень уникальных идентификаторов карт в колоде игрока через запятую</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Результат:</th><td class="field-body">Ответ API</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Тип результата:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Метод является «неблокирующей операцией» (см. документацию), формат ответа соответствует ответу для всех «неблокирующих операций».</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="cards_use">
+<code class="descname">cards_use</code><span class="sig-paren">(</span><em>card</em><span class="optional">[</span>, <em>person</em>, <em>place</em>, <em>building</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#cards_use" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Использовать карту из колоды игрока</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><ul class="first simple">
+<li><strong>card</strong> (<em>str</em>) &#8211; уникальный идентификатор карты в колоде</li>
+<li><strong>person</strong> (<em>str</em>) &#8211; идентификатор Мастера, если карта применяется к Мастеру</li>
+<li><strong>place</strong> (<em>str</em>) &#8211; идентификатор города, если карта применяется к городу</li>
+<li><strong>building</strong> (<em>str</em>) &#8211; идентификатор здания, если карта применяется к зданию</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Результат:</th><td class="field-body"><p class="first">Ответ API</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Тип результата:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Метод является «неблокирующей операцией» (см. документацию), формат ответа соответствует ответу для всех «неблокирующих операций».</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="info">
+<code class="descname">info</code><span class="sig-paren">(</span><em>account</em>, <em>client_turns</em><span class="sig-paren">)</span><a class="headerlink" href="#info" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Информация о текущем ходе и герое</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><ul class="first simple">
+<li><strong>account</strong> (<em>str</em>) &#8211; идентификатор игрока</li>
+<li><strong>client_turns</strong> (<em>list</em>) &#8211; номера ходов, по отношению к которым можно вернуть сокращённую информацию</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Результат:</th><td class="field-body"><p class="first">Ответ API</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Тип результата:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="login">
+<code class="descname">login</code><span class="sig-paren">(</span><em>email</em>, <em>password</em><span class="optional">[</span>, <em>next_url='/'</em>, <em>remember=False</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#login" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Вход в игру. Используйте этот метод только если разрабатываете приложение для себя и друзей. В остальных случаях пользуйтесь «авторизацией в игре».</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><ul class="first simple">
+<li><strong>email</strong> (<em>str</em>) &#8211; email адрес пользователя</li>
+<li><strong>password</strong> (<em>str</em>) &#8211; пароль пользователя</li>
+<li><strong>next_url</strong> (<em>str</em>) &#8211; вернётся в ответе метода в случае успешного входа, по умолчанию равен &#8220;/&#8221;</li>
+<li><strong>remember</strong> &#8211; если флаг указан, сессия игрока будет сохранена на длительное время</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Результат:</th><td class="field-body"><p class="first">Ответ API</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Тип результата:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="logout">
+<code class="descname">logout</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#logout" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Выйти из игры</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Результат:</th><td class="field-body">Ответ API</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Тип результата:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="persons_show">
+<code class="descname">persons_show</code><span class="sig-paren">(</span><em>person</em><span class="sig-paren">)</span><a class="headerlink" href="#persons_show" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Подробная информация о конкретном Мастере</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>person</strong> (<em>str</em>) &#8211; идентификатор Мастера</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Предупреждение</p>
+<p class="last">Это экспериментальный метод, при появлении новой версии не гарантируется работоспособность предыдущей!</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="places_use">
+<code class="descname">places_use</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#places_use" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Получить перечень всех городов с их основными параметрами</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Результат:</th><td class="field-body">Ответ API</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Тип результата:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="places_show">
+<code class="descname">places_show</code><span class="sig-paren">(</span><em>place</em><span class="sig-paren">)</span><a class="headerlink" href="#places_show" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Подробная информация о конкретном городе</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>place</strong> (<em>str</em>) &#8211; идентификатор города</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Предупреждение</p>
+<p class="last">Это экспериментальный метод, при появлении новой версии не гарантируется работоспособность предыдущей!</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="request_authorisation">
+<code class="descname">request_authorisation</code><span class="sig-paren">(</span><em>appName</em>, <em>appInfo</em>, <em>appDesc</em><span class="sig-paren">)</span><a class="headerlink" href="#request_authorisation" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Авторизация приложения для проведения операций от имени пользователя. Приложению не будут доступны «критические» операции и данные.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><ul class="first simple">
+<li><strong>appName</strong> (<em>str</em>) &#8211; короткое название приложения (например, его название в google play)</li>
+<li><strong>appInfo</strong> (<em>str</em>) &#8211; краткое описание информации об устройстве пользователя.</li>
+<li><strong>appDesc</strong> &#8211; описание приложения (без html разметки)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Результат:</th><td class="field-body"><p class="first">Ответ API</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Тип результата:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="select_in_quest">
+<code class="descname">select_in_quest</code><span class="sig-paren">(</span><em>option_uid</em><span class="sig-paren">)</span><a class="headerlink" href="#select_in_quest" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Изменение пути выполнения задания героем</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>option_uid</strong> (<em>str</em>) &#8211; уникальный идентификатор выбора в задании</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Результат:</th><td class="field-body">Ответ API</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Тип результата:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Примечание</p>
+<p class="last">Метод является «неблокирующей операцией» (см. документацию), формат ответа соответствует ответу для всех «неблокирующих операций».</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="show">
+<code class="descname">show</code><span class="sig-paren">(</span><em>account</em><span class="sig-paren">)</span><a class="headerlink" href="#show" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Получить информацию об игроке</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><strong>account</strong> (<em>str</em>) &#8211; идентификатор игрока</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Результат:</th><td class="field-body">Ответ API</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Тип результата:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="use_ability">
+<code class="descname">use_ability</code><span class="sig-paren">(</span><em>abilityId</em><span class="optional">[</span>, <em>building=None</em>, <em>battle=None</em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#use_ability" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Использование одной из способностей игрока (список способностей см. в разделе типов)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Параметры:</th><td class="field-body"><ul class="first simple">
+<li><strong>abilityId</strong> (<em>str</em>) &#8211; идентификатор способности</li>
+<li><strong>building</strong> (<em>str</em>) &#8211; идентификатор здания, если способность касается здания</li>
+<li><strong>battle</strong> (<em>str</em>) &#8211; идентификатор pvp сражения, если способность касается операций с pvp сражением</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Результат:</th><td class="field-body"><p class="first">Ответ API</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Тип результата:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Ссылка на этот заголовок">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span>Алфавитный указатель</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span>Состав модуля</span></a></li>
+<li><a class="reference internal" href="search.html"><span>Поиск</span></a></li>
+</ul>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Ilia Konnov.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
