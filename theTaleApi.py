@@ -29,11 +29,11 @@ class theTaleApi:
 		self.url = 'http://the-tale.org{path}'
 		self.client_id = client_id
 		self.debug = debug
-		CSRFToken = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(32))
+		self.CSRFToken = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(32))
 
 		self.session = requests.session()
-		self.session.headers.update({'X-CSRFToken': CSRFToken})
-		self.session.cookies['csrftoken'] = CSRFToken
+		self.session.headers.update({'X-CSRFToken': self.CSRFToken})
+		self.session.cookies['csrftoken'] = self.CSRFToken
 
 	def base_info(self):
 		'''
@@ -45,7 +45,8 @@ class theTaleApi:
 		'''
 		r = self.session.post(self.url.format(
 			path='/api/info/'),
-			params={'api_client': self.client_id,
+			params={'csrfmiddlewaretoken': self.CSRFToken,
+				'api_client': self.client_id,
 				'api_version': '1.0'})
 		return self._check(r)
 
@@ -66,7 +67,8 @@ class theTaleApi:
 		'''
 		r = self.session.post(self.url.format(
 			path='/accounts/third-party/tokens/api/request-authorisation'),
-			params={'api_client': self.client_id,
+			params={'csrfmiddlewaretoken': self.CSRFToken,
+				'api_client': self.client_id,
 				'api_version': '1.0'},
 			data={'application_name': appName,
 				'application_info': appInfo,
@@ -84,7 +86,8 @@ class theTaleApi:
 		'''
 		r = self.session.get(self.url.format(
 			path='/accounts/third-party/tokens/api/authorisation-state'),
-			params={'api_client': self.client_id,
+			params={'csrfmiddlewaretoken': self.CSRFToken,
+				'api_client': self.client_id,
 				'api_version': '1.0'})
 		return self._check(r)
 
@@ -114,7 +117,8 @@ class theTaleApi:
 			data['remember'] = True
 		r = self.session.post(self.url.format(
 			path='/accounts/auth/api/login'),
-			params={'api_client': self.client_id,
+			params={'csrfmiddlewaretoken': self.CSRFToken,
+				'api_client': self.client_id,
 				'api_version': '1.0',
 				'next_url': next_url},
 			data=data)
@@ -130,7 +134,8 @@ class theTaleApi:
 		'''
 		r = self.session.post(self.url.format(
 			path='/accounts/auth/api/logout'),
-			params={'api_client': self.client_id,
+			params={'csrfmiddlewaretoken': self.CSRFToken,
+				'api_client': self.client_id,
 				'api_version': '1.0'})
 		return self._check(r)
 
@@ -146,7 +151,8 @@ class theTaleApi:
 		'''
 		r = self.session.get(self.url.format(
 			path='/accounts/{acc}/api/show'.format(acc=account)),
-			params={'api_client': self.client_id,
+			params={'csrfmiddlewaretoken': self.CSRFToken,
+				'api_client': self.client_id,
 				'api_version': '1.0'})
 		return self._check(r)
 
@@ -165,7 +171,8 @@ class theTaleApi:
 		client_turns = str(client_turns)
 		r = self.session.post(self.url.format(
 			path='/accounts/third-party/tokens/api/request-authorisation'),
-			params={'api_client': self.client_id,
+			params={'csrfmiddlewaretoken': self.CSRFToken,
+				'api_client': self.client_id,
 				'api_version': '1.3'},
 			data={'account': account,
 				'aclient_turns': client_turns})
@@ -192,7 +199,8 @@ class theTaleApi:
 			data['battle'] = kwargs['battle']
 		r = self.session.post(self.url.format(
 			path='/game/abilities/{aId}/api/use'.format(aId=abilityId)),
-			params={'api_client': self.client_id,
+			params={'csrfmiddlewaretoken': self.CSRFToken,
+				'api_client': self.client_id,
 				'api_version': '1.0'},
 			data=data)
 		return self._check(r)
@@ -211,7 +219,8 @@ class theTaleApi:
 		'''
 		r = self.session.post(self.url.format(
 			path='/game/quests/api/choose/'),
-			params={'api_client': self.client_id,
+			params={'csrfmiddlewaretoken': self.CSRFToken,
+				'api_client': self.client_id,
 				'api_version': '1.0',
 				'option_uid': option_uid})
 		return self._check(r)
@@ -228,7 +237,8 @@ class theTaleApi:
 		'''
 		r = self.session.post(self.url.format(
 			path='/game/cards/api/get'),
-			params={'api_client': self.client_id,
+			params={'csrfmiddlewaretoken': self.CSRFToken,
+				'api_client': self.client_id,
 				'api_version': '1.0'})
 		return self._check(r)
 
@@ -246,7 +256,8 @@ class theTaleApi:
 		'''
 		r = self.session.post(self.url.format(
 			path='/game/cards/api/combine'),
-			params={'api_client': self.client_id,
+			params={'csrfmiddlewaretoken': self.CSRFToken,
+				'api_client': self.client_id,
 				'api_version': '1.0',
 				'cards': cards})
 		return self._check(r)
@@ -278,7 +289,8 @@ class theTaleApi:
 			data['building'] = kwargs['building']
 		r = self.session.post(self.url.format(
 			path='/game/cards/api/use'),
-			params={'api_client': self.client_id,
+			params={'csrfmiddlewaretoken': self.CSRFToken,
+				'api_client': self.client_id,
 				'api_version': '1.0',
 				'card': card},
 			data=data)
@@ -294,7 +306,8 @@ class theTaleApi:
 		'''
 		r = self.session.post(self.url.format(
 			path='/game/places/api/list'),
-			params={'api_client': self.client_id,
+			params={'csrfmiddlewaretoken': self.CSRFToken,
+				'api_client': self.client_id,
 				'api_version': '1.1'})
 		return self._check(r)
 
@@ -310,7 +323,8 @@ class theTaleApi:
 		'''
 		r = self.session.post(self.url.format(
 			path='/game/places/{place}/api/show'.format(place=place)),
-			params={'api_client': self.client_id,
+			params={'csrfmiddlewaretoken': self.CSRFToken,
+				'api_client': self.client_id,
 				'api_version': '2.0'})
 		return self._check(r)
 
@@ -326,6 +340,7 @@ class theTaleApi:
 		'''
 		r = self.session.post(self.url.format(
 			path='/game/places/{person}/api/show'.format(person=person)),
-			params={'api_client': self.client_id,
+			params={'csrfmiddlewaretoken': self.CSRFToken,
+				'api_client': self.client_id,
 				'api_version': '1.0'})
 		return self._check(r)
