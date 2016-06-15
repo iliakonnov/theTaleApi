@@ -1,51 +1,27 @@
 #!/usr/bin/python
 # coding:utf8
+from __future__ import unicode_literals
 from theTaleApi import theTaleApi
+import collections
 import curses
 import re
 import inspect
 import locale
-from pprint import PrettyPrinter
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
 locale.setlocale(locale.LC_ALL, "")
 
 
-class UnicodePrettyPrinter(PrettyPrinter):
-	"""Unicode-friendly PrettyPrinter
-	Prints:
-		- u'привет' instead of u'\u043f\u0440\u0438\u0432\u0435\u0442'
-		- 'привет' instead of '\xd0\xbf\xd1\x80\xd0\xb8\xd0\xb2\xd0\xb5\xd1\x82'
-	https://gist.github.com/shvechikov/1922650
-	"""
-	def format(self, *args, **kwargs):
-		repr, readable, recursive = PrettyPrinter.format(self, *args, **kwargs)
-		if repr:
-			if repr[0] in ('"', "'"):
-				repr = repr.decode('string_escape')
-			elif repr[0:2] in ("u'", 'u"'):
-				repr = repr.decode('unicode_escape').encode(sys.stdout.encoding)
-		return repr, readable, recursive
-
-	def _repr(self, object, context, level):
-		repr, readable, recursive = self.format(object, context.copy(),
-												self._depth, level)
-		if not readable:
-			self._readable = False
-		if recursive:
-			self._recursive = True
-		return repr
-
-
-def upprint(obj, stream=None, indent=1, width=180, depth=None):
-	printer = UnicodePrettyPrinter(stream=stream, indent=indent, width=width, depth=depth)
-	printer.pprint(obj)
-
-
-def upformat(obj, stream=None, indent=1, width=180, depth=None):
-	printer = UnicodePrettyPrinter(stream=stream, indent=indent, width=width, depth=depth)
-	return printer.pformat(obj)
+def dictUnicode(data):
+	if isinstance(data, basestring):
+		return str(data)
+	elif isinstance(data, collections.Mapping):
+		return dict(map(dictUnicode, data.iteritems()))
+	elif isinstance(data, collections.Iterable):
+		return type(data)(map(dictUnicode, data))
+	else:
+		return data
 
 
 def classToDict(c):
@@ -120,9 +96,11 @@ def draw(screen, textKeys, textValues, selected, result):
 	screen.addstr(len(textKeys) + 3, 0, '=' * 12 + 'INPUT' + '=' * 13)
 	screen.addstr(len(textKeys) + 5, 0, '>')
 	screen.addstr(len(textKeys) + 6, 0, '=' * 12 + 'RESULT' + '=' * 12)
+	res = str(dictUnicode(result))
 	num = 0
-	for line in str(result).split('\n'):
-		screen.addstr(len(textKeys) + num + 7, 0, upformat(str(result)))
+	width = screen.getmaxyx()[1]
+	for line in [res[i:i + width] for i in range(0, len(res), width)]:
+		screen.addstr(len(textKeys) + num + 7, 0, line)
 		num += 1
 	screen.move(len(textKeys) + 5, 2)
 
@@ -137,7 +115,7 @@ def main(screen):
 	# print(textValues)
 	selected = 0
 	selecting = False
-	result = ''
+	result = {}
 	'''
 	Экран:
 	Press "q" to exit.
@@ -147,8 +125,8 @@ def main(screen):
 	==========  (+1)
 	<описание>  (+2)
 	==========  (+3)
-	<вопрос>    (+4)
-	<ввод>      (+5)
+	<вопрос>	(+4)
+	<ввод>	  (+5)
 	=результат= (+6)
 	<результат> (+7)
 	'''
