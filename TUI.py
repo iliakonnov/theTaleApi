@@ -45,7 +45,7 @@ def upprint(obj, stream=None, indent=1, width=180, depth=None):
 
 def upformat(obj, stream=None, indent=1, width=180, depth=None):
 	printer = UnicodePrettyPrinter(stream=stream, indent=indent, width=width, depth=depth)
-	printer.pformat(obj)
+	return printer.pformat(obj)
 
 
 def classToDict(c):
@@ -85,7 +85,7 @@ def classToDict(c):
 	regexT = re.compile(':type (.+): (.+)')
 	regexP = re.compile(':param (.+): (.+)')
 	functions = inspect.getmembers(c, predicate=inspect.ismethod)
-	allow = ['__init__']
+	allow = []
 	for fName, func in functions:
 		if not fName.startswith('_') or fName in allow:
 			if fName not in result.keys():
@@ -107,7 +107,7 @@ def classToDict(c):
 	return result
 
 
-def draw(screen, textKeys, textValues, selected):
+def draw(screen, textKeys, textValues, selected, result):
 	screen.erase()
 	screen.addstr(0, 0, 'Press "q" to exit.', curses.A_UNDERLINE)
 	for i in xrange(len(textKeys)):
@@ -115,7 +115,16 @@ def draw(screen, textKeys, textValues, selected):
 			screen.addstr(i + 1, 0, textKeys[i], curses.A_REVERSE)
 		else:
 			screen.addstr(i + 1, 0, textKeys[i])
-	screen.addstr(len(textKeys) + 1, 0, textValues[selected]['desc'])
+	screen.addstr(len(textKeys) + 1, 0, '=' * 9 + 'DESCRIPTION' + '=' * 10)
+	screen.addstr(len(textKeys) + 2, 0, textValues[selected]['desc'])
+	screen.addstr(len(textKeys) + 3, 0, '=' * 12 + 'INPUT' + '=' * 13)
+	screen.addstr(len(textKeys) + 5, 0, '>')
+	screen.addstr(len(textKeys) + 6, 0, '=' * 12 + 'RESULT' + '=' * 12)
+	num = 0
+	for line in str(result).split('\n'):
+		screen.addstr(len(textKeys) + num + 7, 0, upformat(str(result)))
+		num += 1
+	screen.move(len(textKeys) + 5, 2)
 
 
 def main(screen):
@@ -128,8 +137,23 @@ def main(screen):
 	# print(textValues)
 	selected = 0
 	selecting = False
+	result = ''
+	'''
+	Экран:
+	Press "q" to exit.
+	func1
+	func2
+	...
+	==========  (+1)
+	<описание>  (+2)
+	==========  (+3)
+	<вопрос>    (+4)
+	<ввод>      (+5)
+	=результат= (+6)
+	<результат> (+7)
+	'''
 	while True:
-		draw(screen, textKeys, textValues, selected)
+		draw(screen, textKeys, textValues, selected, result)
 		screen.refresh()
 		key = screen.getch()
 		if not selecting:
@@ -145,17 +169,19 @@ def main(screen):
 				selecting = True
 				args = {}
 				for key, value in textValues[selected]['params'].iteritems():
-					draw(screen, textKeys, textValues, selected)
-					screen.addstr(len(textKeys) + 2, 0, '{d} ({t})'.format(d=value['desc'], t=value['type']))
+					draw(screen, textKeys, textValues, selected, result)
+					screen.addstr(len(textKeys) + 4, 0, '{var} = {desc} ({type})'.format(
+						var=key, desc=value['desc'], type=value['type']))
 					screen.refresh()
 					curses.echo()
-					get = screen.getstr(len(textKeys) + 3, 0)
+					get = screen.getstr(len(textKeys) + 5, 2)
 					if get:
 						args[key] = get
 					curses.noecho()
-				result = textValues[selected]['func'](**args)
-				if type(result) is str:
-					screen.addstr(len(textKeys) + 4, 0, upformat(result))
+				try:
+					result = textValues[selected]['func'](**args)
+				except Exception as e:
+					result = e.message
 				selecting = False
 
 curses.wrapper(main)
